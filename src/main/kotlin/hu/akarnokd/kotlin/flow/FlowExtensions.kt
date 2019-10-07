@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
  * flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.publish(transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.publish(transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
     FlowMulticastFunction(this, { PublishSubject() }, transform)
 
 /**
@@ -39,7 +39,7 @@ fun <T, R> Flow<T>.publish(transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
  * flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.replay(transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.replay(transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
         FlowMulticastFunction(this, { ReplaySubject() }, transform)
 
 /**
@@ -49,7 +49,7 @@ fun <T, R> Flow<T>.replay(transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
  * flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.replay(maxSize: Int, transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.replay(maxSize: Int, transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
         FlowMulticastFunction(this, { ReplaySubject(maxSize) }, transform)
 
 /**
@@ -58,7 +58,7 @@ fun <T, R> Flow<T>.replay(maxSize: Int, transform: suspend (Flow<T>) -> Flow<R>)
  * consumers which then can produce the output flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.replay(maxTime: Long, unit: TimeUnit, transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.replay(maxTime: Long, unit: TimeUnit, transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
         FlowMulticastFunction(this, { ReplaySubject(maxTime, unit) }, transform)
 
 /**
@@ -67,7 +67,7 @@ fun <T, R> Flow<T>.replay(maxTime: Long, unit: TimeUnit, transform: suspend (Flo
  * consumers which then can produce the output flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.replay(maxSize: Int, maxTime: Long, unit: TimeUnit, transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.replay(maxSize: Int, maxTime: Long, unit: TimeUnit, transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
         FlowMulticastFunction(this, { ReplaySubject(maxSize, maxTime, unit) }, transform)
 
 /**
@@ -76,7 +76,7 @@ fun <T, R> Flow<T>.replay(maxSize: Int, maxTime: Long, unit: TimeUnit, transform
  * consumers which then can produce the output flow of values.
  */
 @FlowPreview
-fun <T, R> Flow<T>.replay(maxSize: Int, maxTime: Long, unit: TimeUnit, timeSource: (TimeUnit) -> Long, transform: suspend (Flow<T>) -> Flow<R>) : Flow<R> =
+fun <T, R> Flow<T>.replay(maxSize: Int, maxTime: Long, unit: TimeUnit, timeSource: (TimeUnit) -> Long, transform: suspend (Flow<T>) -> Flow<R>) : ConnectableFlow<R> =
         FlowMulticastFunction(this, { ReplaySubject(maxSize, maxTime, unit, timeSource) }, transform)
 
 /**

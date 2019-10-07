@@ -16,6 +16,7 @@
 
 package hu.akarnokd.kotlin.flow.impl
 
+import hu.akarnokd.kotlin.flow.ConnectableFlow
 import hu.akarnokd.kotlin.flow.ResumableCollector
 import hu.akarnokd.kotlin.flow.SubjectAPI
 import kotlinx.coroutines.*
@@ -32,7 +33,19 @@ internal class FlowMulticastFunction<T, R>(
         private val source: Flow<T>,
         private val subject: () -> SubjectAPI<T>,
         private val transform: suspend (Flow<T>) -> Flow<R>
-) : AbstractFlow<R>() {
+) : AbstractFlow<R>(), ConnectableFlow<R> {
+
+    override suspend fun connect() {
+        TODO()
+    }
+
+    override fun disconnect() {
+        TODO()
+    }
+
+    override fun reset() {
+        TODO()
+    }
 
     @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
